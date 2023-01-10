@@ -204,6 +204,8 @@ class AudioSegment(object):
         samples = None
         if not isinstance(audio_file, str) or os.path.splitext(audio_file)[-1] in sf_supported_formats:
             try:
+                samples, sample_rate = librosa.load(audio_file,offset=offset,duration=duration if duration > 0 else None)
+                '''
                 with sf.SoundFile(audio_file, 'r') as f:
                     dtype = 'int32' if int_values else 'float32'
                     sample_rate = f.samplerate
@@ -213,6 +215,9 @@ class AudioSegment(object):
                         samples = f.read(int(duration * sample_rate), dtype=dtype)
                     else:
                         samples = f.read(dtype=dtype)
+                '''
+                import pdb;pdb.set_trace()
+
             except RuntimeError as e:
                 logging.error(
                     f"Loading {audio_file} via SoundFile raised RuntimeError: `{e}`. "

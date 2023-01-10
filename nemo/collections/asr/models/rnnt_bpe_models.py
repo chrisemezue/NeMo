@@ -461,7 +461,6 @@ class EncDecRNNTBPEModel(EncDecRNNTModel, ASRBPEMixin):
             augmentor = None
 
         shuffle = config['shuffle']
-
         is_concat = config.get('is_concat', False)
         if is_concat:
             if 'concat_sampling' in config and config['concat_sampling'] is None:
