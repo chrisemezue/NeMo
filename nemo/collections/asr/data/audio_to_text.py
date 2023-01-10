@@ -81,11 +81,6 @@ def _speech_collate_fn(batch, pad_id):
             sig_len = sig_len.item()
             if sig_len < max_audio_len:
                 pad = (0, max_audio_len - sig_len)
-                # Update from Chris | 10.01.2023
-                # We might need to transpose before padding
-                # If b is of shape (time,batch)
-                # Use the criteria of checking if the higher shape is on the first or second dim
-                import pdb;breakpoint()
                 sig = torch.nn.functional.pad(sig, pad)
             audio_signal.append(sig)
         tokens_i_len = tokens_i_len.item()
@@ -96,7 +91,6 @@ def _speech_collate_fn(batch, pad_id):
 
     if has_audio:
         audio_signal = torch.stack(audio_signal)
-        import pdb;breakpoint()
         audio_lengths = torch.stack(audio_lengths)
     else:
         audio_signal, audio_lengths = None, None
@@ -448,12 +442,6 @@ class _AudioTextDataset(Dataset):
 
 
         f, fl = features, torch.tensor(features.shape[0]).long()
-        # convert features to monochannel
-        # by averaging along the channel axis
-        if f.shape[1]>1: #assume f is of shape (num_samples, num_channels).
-            # It is multi-channel, we need to convert it to mono channel
-            # by averaging across the channels.
-            f = torch.mean(f,1)
 
         t, tl = self.manifest_processor.process_text_by_sample(sample=sample)
 

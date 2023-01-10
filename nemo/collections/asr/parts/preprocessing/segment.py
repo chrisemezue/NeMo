@@ -216,7 +216,6 @@ class AudioSegment(object):
                     else:
                         samples = f.read(dtype=dtype)
                 '''
-                import pdb;pdb.set_trace()
 
             except RuntimeError as e:
                 logging.error(
