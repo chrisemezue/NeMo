@@ -1,4 +1,4 @@
-# Installing from my source
+# 🍾Changes I made
 I've had to make some changes to the way the audio is loaded. Using soundfile to load the audio, as done [here](https://github.com/NVIDIA/NeMo/blob/main/nemo/collections/asr/parts/preprocessing/segment.py#L207), loads the audio as stereo instead of monochannel as required for our ASR experiments.
 
 Therefore, I had to replace the loading function with librosa, see [here](https://github.com/chrisemezue/NeMo/blob/main/nemo/collections/asr/parts/preprocessing/segment.py#L207).
