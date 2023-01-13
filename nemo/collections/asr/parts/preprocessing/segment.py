@@ -204,17 +204,17 @@ class AudioSegment(object):
         samples = None
         if not isinstance(audio_file, str) or os.path.splitext(audio_file)[-1] in sf_supported_formats:
             try:
-                samples, sample_rate = librosa.load(audio_file,offset=offset,duration=duration if duration > 0 else None)
+                samples, sample_rate = librosa.load(audio_file,offset=offset,duration=duration if duration > 0 else None,sr=target_sr)
                 '''
                 with sf.SoundFile(audio_file, 'r') as f:
                     dtype = 'int32' if int_values else 'float32'
-                    sample_rate = f.samplerate
+                    sample_rate2 = f.samplerate
                     if offset > 0:
-                        f.seek(int(offset * sample_rate))
+                        f.seek(int(offset * sample_rate2))
                     if duration > 0:
-                        samples = f.read(int(duration * sample_rate), dtype=dtype)
+                        samples2 = f.read(int(duration * sample_rate2), dtype=dtype)
                     else:
-                        samples = f.read(dtype=dtype)
+                        samples2= f.read(dtype=dtype)
                 '''
 
             except RuntimeError as e:
